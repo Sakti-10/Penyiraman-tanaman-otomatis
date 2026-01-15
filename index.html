@@ -1,9 +1,9 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="id">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Dashboard Hidroponik MQTT</title>
+  <title>Dashboard Smart Plant</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -21,10 +21,9 @@
           Smart Plant
         </div>
         <h1 class="title">
-  <img src="kkn.png" alt="Logo" class="title-logo">
-  Dashboard Penyiraman Tanaman Otomatis
-</h1>
-
+          <img src="kkn.png" alt="Logo" class="title-logo" onerror="this.style.display='none'">
+          Sistem Penyiraman Otomatis
+        </h1>
         <p class="sub">
           <i class="fas fa-users"></i>
           KKN Tematik 19 - Tanjung Agung
@@ -50,8 +49,8 @@
       <section class="card card-sensor" style="--i:0">
         <div class="card-header">
           <h2>
-            <i class="fas fa-thermometer-half"></i>
-            Status Sensor
+            <i class="fas fa-leaf"></i>
+            Monitoring Tanah
           </h2>
           <div class="card-actions">
             <button id="btnRefresh" class="btn-icon" title="Refresh data">
@@ -62,19 +61,17 @@
         <div class="kpi-row">
           <div class="kpi kpi-temp">
             <div class="kpi-icon">
-              <i class="fas fa-thermometer-three-quarters"></i>
-            </div>
+              <i class="fas fa-seedling"></i> </div>
             <div class="kpi-content">
-              <div class="kpi-label">Kelembapan 1</div>
+              <div class="kpi-label">Sensor Tanah 1</div>
               <div class="kpi-value"><span id="hum1">--</span> <span class="unit">%</span></div>
             </div>
           </div>
           <div class="kpi kpi-hum">
             <div class="kpi-icon">
-              <i class="fas fa-tint"></i>
-            </div>
+              <i class="fas fa-water"></i> </div>
             <div class="kpi-content">
-              <div class="kpi-label">Kelembapan 2</div>
+              <div class="kpi-label">Sensor Tanah 2</div>
               <div class="kpi-value"><span id="hum2">--</span> <span class="unit">%</span></div>
             </div>
           </div>
@@ -92,11 +89,11 @@
       </section>
 
       <section class="card card-control" style="--i:1">
-        <h2><i class="fas fa-cogs"></i> Kontrol Operasi</h2>
+        <h2><i class="fas fa-gamepad"></i> Panel Kontrol</h2>
         
         <div class="control-group">
           <div class="control-header">
-            <h3>Pilih Mode</h3>
+            <h3>Mode Operasi</h3>
             <span class="pill" id="modePill">MANUAL</span>
           </div>
           <div class="mode-grid">
@@ -114,7 +111,7 @@
 
         <div class="control-group">
           <div class="control-header">
-            <h3>Status Pompa</h3>
+            <h3>Saklar Pompa</h3>
             <span class="pill unk" id="relayPill">UNKNOWN</span>
           </div>
           <div class="control-buttons">
@@ -140,8 +137,7 @@
               <input id="durationInput" class="input number-input" type="number" value="5" style="width:60px" placeholder="Menit">
               <button id="btnSetSchedule" class="btn primary"><i class="fas fa-save"></i> JAM</button>
             </div>
-            <div id="scheduleSummary" style="margin-top:10px; font-size:12px; color:var(--accent);">
-            </div>
+            <div id="scheduleSummary" style="margin-top:10px; font-size:12px; color:var(--accent);"></div>
           </div>
         </div>
 
@@ -156,26 +152,18 @@
         
         <div class="hint">
           <i class="fas fa-info-circle"></i>
-          <p>Set Jam untuk Mode <b>AUTO JAM</b>. Set Batas Kering untuk Mode <b>AUTO TANAH</b>.</p>
+          <p>Pompa menyala otomatis jika tanah di bawah Batas Kering (Mode Auto Tanah).</p>
         </div>
       </section>
 
       <section class="card wide card-chart" style="--i:3">
         <div class="card-header">
           <h2>
-            <i class="fas fa-chart-line"></i>
-            Grafik (kelembapan 1 & Kelembapan 2)
+            <i class="fas fa-chart-area"></i>
+            Grafik Kelembapan Tanah
           </h2>
           <div class="chart-controls">
-            <button class="btn-icon chart-btn active" data-range="60">
-              <span>1 Jam</span>
-            </button>
-            <button class="btn-icon chart-btn" data-range="360">
-              <span>6 Jam</span>
-            </button>
-            <button class="btn-icon chart-btn" data-range="720">
-              <span>12 Jam</span>
-            </button>
+            <button class="btn-icon chart-btn active"><span>Live</span></button>
           </div>
         </div>
         <div class="chart-container">
@@ -183,29 +171,25 @@
         </div>
         <div class="chart-legend">
           <div class="legend-item">
-            <span class="legend-color hum-color"></span>
-            <span>Kelembapan 1 (%)</span>
+            <span class="legend-color" style="background: #2f7d5c;"></span>
+            <span>Tanah 1 (%)</span>
           </div>
           <div class="legend-item">
-            <span class="legend-color hum-color"></span>
-            <span>Kelembapan 2 (%)</span>
+            <span class="legend-color" style="background: #5a8de1;"></span>
+            <span>Tanah 2 (%)</span>
           </div>
         </div>
-        <p class="hint">Grafik menampilkan data sensor dalam waktu nyata (60 data terakhir).</p>
       </section>
 
       <section class="card wide card-log" style="--i:4">
         <div class="card-header">
           <h2>
-            <i class="fas fa-stream"></i>
-            Log MQTT
+            <i class="fas fa-terminal"></i>
+            Log Sistem
           </h2>
           <div class="log-controls">
             <button id="btnClearLog" class="btn-icon" title="Bersihkan log">
               <i class="fas fa-trash-alt"></i>
-            </button>
-            <button id="btnPauseLog" class="btn-icon" title="Jeda log">
-              <i class="fas fa-pause"></i>
             </button>
           </div>
         </div>
@@ -221,12 +205,11 @@
       <div class="footer-content">
         <div class="footer-motto">
           <i class="fas fa-leaf"></i>
-          <small>Memberdayakan dengan Teknologi, Menumbuhkan dengan Ilmu</small>
+          <small>Memberdayakan Desa dengan Teknologi Tepat Guna</small>
         </div>
         <div class="footer-info">
           <small class="footer-note">
-            Smart Hidroponik - KKN Kelompok 19 Institut Teknologi Sumatera, Desa Tanjung Agung, 2026
-          <i class="fas fa-map-marker-alt"></i>
+            Smart Hidroponik - KKN Kelompok 19 ITERA, Desa Tanjung Agung, 2026
           </small>
         </div>
       </div>
