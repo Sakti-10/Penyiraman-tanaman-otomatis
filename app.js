@@ -1,6 +1,6 @@
 /* ================= CONFIG ================= */
 const deviceId = "smartplant-19";
-const broker   = "1ef28a790e1e4485b43597cba588c4f5.s1.eu.hivemq.cloud";
+const broker = "wss://1ef28a790e1e4485b43597cba588c4f5.s1.eu.hivemq.cloud:8884/mqtt";
 
 const options = {
   clientId: "web_" + Math.random().toString(16).substr(2, 8),
